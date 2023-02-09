@@ -1,4 +1,5 @@
 ﻿using MedicalClinic.Common.Enums;
+using MedicalClinic.DAL.Entities;
 
 namespace MedicalClinic.Models
 {
@@ -9,5 +10,10 @@ namespace MedicalClinic.Models
         public string Email { get; set; }   
 
         public UserType UserType { get; set; }  
+
+        public virtual List <Patient> Patients { get; set; }
+        public virtual List<Doctor> Doctors { get; set; }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MedicalClinic.Models
+﻿using MedicalClinic.DAL.Entities;
+
+namespace MedicalClinic.Models
 {
     public class Patient
     {
@@ -9,5 +11,6 @@
         public string Email { get; set; }   
         public int? UserId { get; set; }
         public virtual User User { get; set; }
+        public virtual List <Appointment> Appointments { get; set; }    
     }
 }

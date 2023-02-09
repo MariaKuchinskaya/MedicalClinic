@@ -1,13 +1,13 @@
 ﻿
 
 using EfWebTutorial.Interfaces;
-using EfWebTutorial.Models;
+using MedicalClinic.DAL;
 using MedicalClinic.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfWebTutorial.Repositories
 {
-    public class PatientRepository : IBaseRepository<Patient>
+    public class PatientRepository : IRepository<Patient>
     {
         private readonly ApplicationContext _db;
 
@@ -15,47 +15,38 @@ namespace EfWebTutorial.Repositories
         {
             _db = db;
         }
-        public async Task CreateAsync(Patient item)
+        public async Task <Patient> CreateAsync(Patient item)
         {
             _db.Patients.Add(item);
             _db.SaveChanges();
+            return item;    
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            if (id != null)
+            var patient = await _db.Patients.FirstOrDefaultAsync(p => p.Id == id);
+            if (patient != null)
             {
-                var patient = await _db.Patients.FirstOrDefaultAsync(p => p.Id == id);
-                if (patient != null)
-                {
-                    _db.Patients.Remove(patient);
-                    await _db.SaveChangesAsync();
-                    return true;
-                }
-            }
-
-            return false;
+                _db.Patients.Remove(patient);
+                await _db.SaveChangesAsync();    
+            } 
         }
 
     
 
         public async Task<List<Patient>> GetAllItemsAsync()
         {
-            var res = await _db.Patients.ToListAsync();
-                
-
-            return res;
+            return await _db.Patients.ToListAsync();
         }
 
     
-        public async Task<Patient> GetOneItemAsync(int id)
+        public async Task<Patient> GetItemAsync(int id)
         {
-            var res = await _db.Patients.FirstOrDefaultAsync(x => x.Id == id);
-            return res;
+            return await _db.Patients.FirstOrDefaultAsync(x => x.Id == id);
         }
 
 
-        public async Task EditAsync(Patient patient)
+        public async Task<Patient> EditAsync(Patient patient)
         {
             var dbPatient = await _db.Patients.FirstOrDefaultAsync(x => x.Id == patient.Id);
             if (dbPatient != null)
@@ -64,15 +55,9 @@ namespace EfWebTutorial.Repositories
                 dbPatient.Surname = patient.Surname;
                 dbPatient.PhoneNumber = patient.PhoneNumber;    
                 dbPatient.Email = patient.Email;
+                _db.SaveChanges();
             }
-
-            _db.SaveChanges();
-        }
-
-
-        public Task<List<Patient>> GetAllItemsSortedAsync()
-        {
-            throw new NotImplementedException();
+            return dbPatient;
         }
     }
 }

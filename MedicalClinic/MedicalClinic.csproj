@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MedicalClinic.BusinessLayer\MedicalClinic.BusinessLayer.csproj" />
     <ProjectReference Include="..\MedicalClinic.DAL\MedicalClinic.DAL.csproj" />
   </ItemGroup>
 

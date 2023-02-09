@@ -1,4 +1,5 @@
 ﻿using MedicalClinic.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedicalClinic.DAL.Entities
 {
@@ -8,10 +9,12 @@ namespace MedicalClinic.DAL.Entities
         public string Name { get; set; }    
         public string Surname { get; set; } 
         public string PhoneNumber { get; set; } 
-        public string Email { get; set; }   
+        public string Email { get; set; }
         public int? UserId { get; set; }    
-        public virtual User User { get; set; }  
+        public virtual User User { get; set; }
         public int? SpecialityId { get; set; }
         public virtual Speciality Speciality { get; set; }
+        public virtual List <Appointment> Appointments { get; set; }    
+
     }
 }

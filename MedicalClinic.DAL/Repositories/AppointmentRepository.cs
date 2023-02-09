@@ -1,11 +1,11 @@
 ﻿using EfWebTutorial.Interfaces;
-using EfWebTutorial.Models;
+using MedicalClinic.DAL;
 using MedicalClinic.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfWebTutorial.Repositories
 {
-    public class AppointmentRepository : IBaseRepository<Appointment>
+    public class AppointmentRepository : IRepository<Appointment>
     {
         private readonly ApplicationContext _db;
 
@@ -13,48 +13,51 @@ namespace EfWebTutorial.Repositories
         {
             _db = db;
         }
-        public async Task CreateAsync(Appointment item)
+        public async Task<Appointment> CreateAsync(Appointment item)
         {
             _db.Appointments.Add(item);
             _db.SaveChanges();
+            return item;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-                var appointment = await _db.Appointments.FirstOrDefaultAsync(p => p.Id == id);
-                if (appointment != null)
-                {
-                    _db.Appointments.Remove(appointment); ;
-                    await _db.SaveChangesAsync();
-                    return true;
-                }
-
-            return false;
+            var appointment = await _db.Appointments.FirstOrDefaultAsync(p => p.Id == id);
+            if (appointment != null)
+            {
+                _db.Appointments.Remove(appointment);
+                await _db.SaveChangesAsync();
+            }
         }
 
-        public async Task EditAsync(Appointment item)
-        {
 
-            _db.Appointments.Update(item);
-            await _db.SaveChangesAsync();
-        }
 
         public async Task<List<Appointment>> GetAllItemsAsync()
         {
-            var res = await _db.Appointments.ToListAsync();
-            return res;
+            return await _db.Appointments.ToListAsync();
         }
 
-        public Task<List<Appointment>> GetAllItemsSortedAsync()
+
+        public async Task<Appointment> GetItemAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Appointments.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Appointment> GetOneItemAsync(int id)
+
+        public async Task<Appointment> EditAsync(Appointment appointment)
         {
-            var res = await _db.Appointments.FirstOrDefaultAsync(x => x.Id == id);
-            return res;
+            var dbAppointment = await _db.Appointments.FirstOrDefaultAsync(x => x.Id == appointment.Id);
+            if (dbAppointment != null)
+            {
+                dbAppointment.PatientId = appointment.PatientId;
+                dbAppointment.Results = appointment.Results;
+                dbAppointment.TimeStamp = appointment.TimeStamp;
+                dbAppointment.DoctorId = appointment.DoctorId;  
+                _db.SaveChanges();
+            }
+            return dbAppointment;
         }
+
     }
 }
 
