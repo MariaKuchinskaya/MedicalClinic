@@ -29,8 +29,6 @@ namespace MedicalClinic.DAL.Repositories
             }
         }
 
-
-
         public async Task<List<Analyze>> GetAllItemsAsync()
         {
             return await _db.Analyzes.ToListAsync();

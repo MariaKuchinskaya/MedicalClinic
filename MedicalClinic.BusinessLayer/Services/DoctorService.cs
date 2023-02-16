@@ -1,47 +1,59 @@
-﻿using EfWebTutorial.Repositories;
+﻿using AutoMapper;
+using EfWebTutorial.Repositories;
 using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.Domain.Entities;
 using MedicalClinic.Services.Interfaces;
 
 namespace MedicalClinic.BusinessLayer.Services
 {
     public class DoctorService : IDoctorService
     {
-        DoctorRepository _doctorRepository;
+        private readonly DoctorRepository _doctorRepository;
+        private readonly IMapper _mapper;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(DoctorRepository doctorRepository, IMapper mapper)
         {
-            doctorRepository = _doctorRepository;
+            _doctorRepository = doctorRepository;
+            _mapper = mapper;
         }
 
-        public async Task<DoctorDto> CreateNewDoctor(DoctorDto doctor)
+        public async Task<DoctorDto> CreateNewDoctorAsync(DoctorDto doctorDto)
         {
-            return await _doctorRepository.CreateAsync(doctor);
+            var doctor = _mapper.Map<Doctor>(doctorDto);
 
+            var result =  await _doctorRepository.CreateAsync(doctor);
+
+            return _mapper.Map<DoctorDto>(result);
         }
 
-        public async Task<List<DoctorDto>> GetAllDoctors()
+        public async Task<List<DoctorDto>> GetAllDoctorsAsync()
         {
-            var res = await _doctorRepository.GetAllItemsAsync();
-            return res;
+            var result = await _doctorRepository.GetAllItemsAsync();
+
+            return _mapper.Map<List<DoctorDto>>(result);
         }
 
         public async Task DeleteAsync(int id)
         {
             await _doctorRepository.DeleteAsync(id);
-
         }
 
 
-        public async Task<DoctorDto> EditAsync(DoctorDto doctor)
+        public async Task<DoctorDto> EditAsync(DoctorDto doctorDto)
         {
-            return await _doctorRepository.EditAsync(doctor);
+            var doctor = _mapper.Map<Doctor>(doctorDto);
+
+            var result =  await _doctorRepository.EditAsync(doctor);
+
+            return _mapper.Map<DoctorDto>(result);
         }
 
 
         public async Task<DoctorDto> GetDoctorByIdAsync(int id)
         {
             var doctor = await _doctorRepository.GetItemAsync(id);
-            return doctor;
+
+            return _mapper.Map<DoctorDto>(doctor);
         }
     }
 }

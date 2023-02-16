@@ -5,9 +5,9 @@ namespace MedicalClinic.Services.Interfaces
 {
     public interface IPatientService
     {
-        public Task <PatientDto> CreateNewPatient(PatientDto patient);
+        public Task <PatientDto> CreateNewPatientAsync(PatientDto patient);
 
-        public Task<List<PatientDto>> GetAllPatients();
+        public Task<List<PatientDto>> GetAllPatientsAsync();
 
         public Task DeleteAsync(int id);
 

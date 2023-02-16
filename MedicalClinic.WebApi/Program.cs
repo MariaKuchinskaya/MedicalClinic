@@ -17,11 +17,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<PatientRepository, PatientRepository>();
-builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<DoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<UserRepository, UserRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 var config = new MapperConfiguration(c =>
 {

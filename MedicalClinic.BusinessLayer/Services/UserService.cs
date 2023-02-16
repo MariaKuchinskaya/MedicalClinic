@@ -1,49 +1,55 @@
-﻿using EfWebTutorial.Interfaces;
-using EfWebTutorial.Repositories;
+﻿using AutoMapper;
 using MedicalClinic.DAL.Repositories;
+using MedicalClinic.Domain.Entities;
 using MedicalClinic.Services.Interfaces;
 
 namespace MedicalClinic.BusinessLayer.Services
 {
     public class UserService : IUserService
     {
-        UserRepository _userRepository;
+        private readonly UserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(UserRepository userRepository)
+        public UserService(UserRepository userRepository, IMapper mapper)
         {
-            userRepository = _userRepository;
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public async Task<User> CreateNewUser(User user)
+        public async Task<UserDto> CreateNewUserAsync(UserDto userDto)
         {
-            return await _userRepository.CreateAsync(user);
+            var user =  _mapper.Map<User>(userDto);
+            var result =  await _userRepository.CreateAsync(user);
 
+            return _mapper.Map<UserDto>(result);
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<UserDto>> GetAllUsersAsync()
         {
-            var res = await _userRepository.GetAllItemsAsync();
-            return res;
+            var result = await _userRepository.GetAllItemsAsync();
+            return _mapper.Map<List<UserDto>>(result);
         }
 
         public async Task DeleteAsync(int id)
         {
             await _userRepository.DeleteAsync(id);
-
         }
 
 
-        public async Task<User> EditAsync(User user)
+        public async Task<UserDto> EditAsync(UserDto userDto)
         {
-            return await _userRepository.EditAsync(user);
+            var user = _mapper.Map<User>(userDto);
+            var result =  await _userRepository.EditAsync(user);
+
+            return _mapper.Map<UserDto>(result);
         }
 
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetUserByIdAsync(int id)
         {
             var user = await _userRepository.GetItemAsync(id);
-            return user;
 
+            return _mapper.Map<UserDto>(user);
         }
     }
 }

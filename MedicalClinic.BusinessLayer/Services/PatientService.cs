@@ -1,4 +1,4 @@
-﻿using AutoMapper;ftfyyggyyu
+﻿using AutoMapper;
 using MedicalClinic.BusinessLayer.Entities;
 using MedicalClinic.DAL.Repositories;
 using MedicalClinic.Domain.Entities;
@@ -7,16 +7,16 @@ namespace MedicalClinic.Services.Interfaces
 {
     public class PatientService : IPatientService
     {
-        PatientRepository _patientRepository;
-        IMapper _mapper;
+        private readonly PatientRepository _patientRepository;
+        private readonly IMapper _mapper;
 
         public PatientService(PatientRepository patientRepository, IMapper mapper)
         {
-            patientRepository = _patientRepository;
+            _patientRepository = patientRepository;
             _mapper = mapper;
         }
 
-        public async Task<PatientDto> CreateNewPatient(PatientDto patientDto)
+        public async Task<PatientDto> CreateNewPatientAsync(PatientDto patientDto)
         {
             var patient = _mapper.Map<Patient>(patientDto);
             var savedPacient = await _patientRepository.CreateAsync(patient);
@@ -24,29 +24,32 @@ namespace MedicalClinic.Services.Interfaces
             return _mapper.Map<PatientDto>(savedPacient);
         }
 
-        public async Task<List<PatientDto>> GetAllPatients()
+        public async Task<List<PatientDto>> GetAllPatientsAsync()
         {
-            var res = await _patientRepository.GetAllItemsAsync();
-            return res;
+            var result = await _patientRepository.GetAllItemsAsync();
+            return _mapper.Map<List<PatientDto>>(result);
         }
 
         public async Task DeleteAsync(int id)
         {
             await _patientRepository.DeleteAsync(id);
-
         }
 
 
-        public async Task<Patient> EditAsync(Patient patient)
+        public async Task<PatientDto> EditAsync(PatientDto patientDto)
         {
-            return await _patientRepository.EditAsync(patient);
+            var patient = _mapper.Map<Patient>(patientDto);
+            var result = await _patientRepository.EditAsync(patient);
+
+            return _mapper.Map<PatientDto>(result);
         }
 
 
-        public async Task<Patient> GetPatientByIdAsync(int id)
+        public async Task<PatientDto> GetPatientByIdAsync(int id)
         {
             var patient = await _patientRepository.GetItemAsync(id);
-            return patient;
+
+            return _mapper.Map<PatientDto>(patient);
         }
     }
 }

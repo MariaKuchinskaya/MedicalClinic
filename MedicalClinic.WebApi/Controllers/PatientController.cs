@@ -10,23 +10,30 @@ namespace MedicalClinic.WebApi.Controllers
     public class PatientController : ControllerBase
     {
         private readonly ILogger<PatientController> _logger;
-        private readonly PatientService _patientService;
-        private readonly IMapper _mapper;
+        private readonly IPatientService _patientService;
 
-        
-
-        public PatientController(ILogger<PatientController> logger, PatientService patientService, IMapper mapper)
+        public PatientController(ILogger<PatientController> logger, IPatientService patientService, IMapper mapper)
         {
             _logger = logger;
-            _patientService = patientService;
-            _mapper = mapper;   
+            _patientService = patientService; 
         }
 
         [HttpGet(Name = "Patient")]
+        [ProducesResponseType(typeof(List<PatientDto>), 200)]
+        [ProducesResponseType(typeof(string), 500)]
+
         public async Task<IEnumerable<PatientDto>> Get()
         {
-            var result = await _patientService.GetAllPatients();
-            return result; 
+            try
+            {
+                var result = await _patientService.GetAllPatientsAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
         }
     }
 }
