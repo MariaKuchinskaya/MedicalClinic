@@ -1,20 +1,18 @@
-﻿
-using MedicalClinic.DAL.Entities;
-using MedicalClinic.Models;
+﻿using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.Domain.Entities;
 
-namespace EfWebTutorial.Services.Interfaces
+namespace MedicalClinic.Services.Interfaces
 {
     public interface IPatientService
     {
-        public Task <Patient> CreateNewPatient(Patient patient);
+        public Task <PatientDto> CreateNewPatient(PatientDto patient);
 
-        public Task<List<Patient>> GetAllPatients();
+        public Task<List<PatientDto>> GetAllPatients();
 
         public Task DeleteAsync(int id);
-        public Task <Patient> EditAsync(Patient patient);
 
-        public Task<Patient> GetPatientByIdAsync(int id);
+        public Task <PatientDto> EditAsync(PatientDto patient);
 
-
+        public Task<PatientDto> GetPatientByIdAsync(int id);
     }
 }

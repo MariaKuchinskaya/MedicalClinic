@@ -1,18 +1,19 @@
-﻿using MedicalClinic.Models;
+﻿using MedicalClinic.Domain.Entities;
 
-namespace EfWebTutorial.Interfaces
+namespace MedicalClinic.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<User> CreateNewUser(User user);
+        public Task<UserDto> CreateNewUser(UserDto user);
 
-        public Task<List<User>> GetAllUsers();
+        public Task<List<UserDto>> GetAllUsers();
 
         public Task DeleteAsync(int id);
-        public Task<User> EditAsync(User user);
+        public Task<UserDto> EditAsync(UserDto user);
 
-        public Task<User> GetUserByIdAsync(int id);
-
-
+        public Task<UserDto> GetUserByIdAsync(int id);
     }
 }
+
+
+

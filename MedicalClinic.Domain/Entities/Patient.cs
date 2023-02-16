@@ -1,6 +1,4 @@
-﻿using MedicalClinic.DAL.Entities;
-
-namespace MedicalClinic.Models
+﻿namespace MedicalClinic.Domain.Entities
 {
     public class Patient
     {

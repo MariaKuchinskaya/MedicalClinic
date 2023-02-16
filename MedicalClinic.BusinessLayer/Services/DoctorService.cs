@@ -1,27 +1,25 @@
-﻿
+﻿using EfWebTutorial.Repositories;
+using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.Services.Interfaces;
 
-using EfWebTutorial.Repositories;
-using EfWebTutorial.Services.Interfaces;
-using MedicalClinic.DAL.Entities;
-
-namespace EfWebTutorial.Services
+namespace MedicalClinic.BusinessLayer.Services
 {
     public class DoctorService : IDoctorService
     {
-        DoctorRepository _doctorRepository; 
+        DoctorRepository _doctorRepository;
 
         public DoctorService(DoctorRepository doctorRepository)
         {
             doctorRepository = _doctorRepository;
         }
 
-        public async Task <Doctor> CreateNewDoctor(Doctor doctor)
+        public async Task<DoctorDto> CreateNewDoctor(DoctorDto doctor)
         {
             return await _doctorRepository.CreateAsync(doctor);
 
         }
 
-        public async Task<List<Doctor>> GetAllDoctors()
+        public async Task<List<DoctorDto>> GetAllDoctors()
         {
             var res = await _doctorRepository.GetAllItemsAsync();
             return res;
@@ -30,17 +28,17 @@ namespace EfWebTutorial.Services
         public async Task DeleteAsync(int id)
         {
             await _doctorRepository.DeleteAsync(id);
-           
+
         }
 
 
-        public async Task<Doctor> EditAsync(Doctor doctor)
+        public async Task<DoctorDto> EditAsync(DoctorDto doctor)
         {
             return await _doctorRepository.EditAsync(doctor);
         }
 
-   
-        public async Task<Doctor> GetDoctorByIdAsync(int id)
+
+        public async Task<DoctorDto> GetDoctorByIdAsync(int id)
         {
             var doctor = await _doctorRepository.GetItemAsync(id);
             return doctor;

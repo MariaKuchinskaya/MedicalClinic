@@ -1,7 +1,4 @@
-﻿using MedicalClinic.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MedicalClinic.DAL.Entities
+﻿namespace MedicalClinic.Domain.Entities
 {
     public class Doctor
     {

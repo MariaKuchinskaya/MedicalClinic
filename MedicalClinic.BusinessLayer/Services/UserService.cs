@@ -1,9 +1,9 @@
 ﻿using EfWebTutorial.Interfaces;
 using EfWebTutorial.Repositories;
 using MedicalClinic.DAL.Repositories;
-using MedicalClinic.Models;
+using MedicalClinic.Services.Interfaces;
 
-namespace EfWebTutorial.Services
+namespace MedicalClinic.BusinessLayer.Services
 {
     public class UserService : IUserService
     {

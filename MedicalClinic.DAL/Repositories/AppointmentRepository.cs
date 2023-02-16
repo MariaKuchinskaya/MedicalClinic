@@ -1,6 +1,6 @@
 ﻿using EfWebTutorial.Interfaces;
 using MedicalClinic.DAL;
-using MedicalClinic.DAL.Entities;
+using MedicalClinic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfWebTutorial.Repositories

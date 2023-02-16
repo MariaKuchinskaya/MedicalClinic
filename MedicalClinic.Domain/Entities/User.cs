@@ -1,7 +1,6 @@
 ﻿using MedicalClinic.Common.Enums;
-using MedicalClinic.DAL.Entities;
 
-namespace MedicalClinic.Models
+namespace MedicalClinic.Domain.Entities
 {
     public class User
     {

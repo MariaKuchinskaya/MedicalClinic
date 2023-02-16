@@ -1,27 +1,30 @@
-﻿
-using EfWebTutorial.Repositories;
-using EfWebTutorial.Services.Interfaces;
-using MedicalClinic.DAL.Entities;
-using MedicalClinic.Models;
+﻿using AutoMapper;ftfyyggyyu
+using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.DAL.Repositories;
+using MedicalClinic.Domain.Entities;
 
-namespace EfWebTutorial.Services
+namespace MedicalClinic.Services.Interfaces
 {
     public class PatientService : IPatientService
     {
         PatientRepository _patientRepository;
+        IMapper _mapper;
 
-        public PatientService(PatientRepository patientRepository)
+        public PatientService(PatientRepository patientRepository, IMapper mapper)
         {
             patientRepository = _patientRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Patient> CreateNewPatient(Patient doctor)
+        public async Task<PatientDto> CreateNewPatient(PatientDto patientDto)
         {
-            return await _patientRepository.CreateAsync(doctor);
+            var patient = _mapper.Map<Patient>(patientDto);
+            var savedPacient = await _patientRepository.CreateAsync(patient);
 
+            return _mapper.Map<PatientDto>(savedPacient);
         }
 
-        public async Task<List<Patient>> GetAllPatients()
+        public async Task<List<PatientDto>> GetAllPatients()
         {
             var res = await _patientRepository.GetAllItemsAsync();
             return res;

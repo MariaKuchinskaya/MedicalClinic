@@ -1,11 +1,8 @@
-﻿
-
-using EfWebTutorial.Interfaces;
-using MedicalClinic.DAL;
-using MedicalClinic.Models;
+﻿using EfWebTutorial.Interfaces;
+using MedicalClinic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EfWebTutorial.Repositories
+namespace MedicalClinic.DAL.Repositories
 {
     public class PatientRepository : IRepository<Patient>
     {

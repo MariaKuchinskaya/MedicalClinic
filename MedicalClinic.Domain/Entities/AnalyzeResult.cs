@@ -1,6 +1,4 @@
-﻿using MedicalClinic.Models;
-
-namespace MedicalClinic.DAL.Entities
+﻿namespace MedicalClinic.Domain.Entities
 {
     public class AnalyzeResult
     {

@@ -1,7 +1,6 @@
 ﻿using EfWebTutorial.Interfaces;
 using MedicalClinic.DAL;
-using MedicalClinic.DAL.Entities;
-using MedicalClinic.Models;
+using MedicalClinic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Web.Mvc;
 
