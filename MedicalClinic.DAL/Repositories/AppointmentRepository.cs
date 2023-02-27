@@ -1,11 +1,11 @@
-﻿using EfWebTutorial.Interfaces;
+﻿using MedicalClinic.DAL.Repositories.Interfaces;
 using MedicalClinic.DAL;
 using MedicalClinic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfWebTutorial.Repositories
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class AppointmentRepository : IAppointmentRepository
     {
         private readonly ApplicationContext _db;
 
@@ -58,6 +58,11 @@ namespace EfWebTutorial.Repositories
             return dbAppointment;
         }
 
+        public async Task<List<Appointment>> GetAppointmentHistoryByPatientIdAsync(int patientId)
+        {
+            var history = await _db.Appointments.Where(x => x.PatientId == patientId && x.TimeStamp <= DateTime.Now).ToListAsync();
+            return history;
+        }
     }
 }
 

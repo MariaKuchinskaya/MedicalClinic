@@ -58,7 +58,7 @@ namespace MedicalClinic.DAL
                          .HasOne(u => u.Speciality)
                          .WithMany(c => c.Doctors)
                          .HasForeignKey(u => u.SpecialityId);
-            
+
             modelBuilder.Entity<Doctor>()
                         .HasOne(u => u.User)
                         .WithMany(c => c.Doctors)
@@ -68,7 +68,7 @@ namespace MedicalClinic.DAL
             modelBuilder.Entity<Patient>()
                         .HasOne(u => u.User)
                         .WithMany(c => c.Patients)
-                        .HasForeignKey (u => u.UserId);
+                        .HasForeignKey(u => u.UserId);
 
             modelBuilder.Entity<Appointment>()
                         .HasOne(u => u.Patient)

@@ -1,4 +1,5 @@
 using AutoMapper;
+using MedicalClinic.BusinessLayer.Dtos;
 using MedicalClinic.BusinessLayer.Entities;
 using MedicalClinic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,13 @@ namespace MedicalClinic.WebApi.Controllers
     {
         private readonly ILogger<PatientController> _logger;
         private readonly IPatientService _patientService;
+        private readonly IAppointmentService _appointmentService;
 
-        public PatientController(ILogger<PatientController> logger, IPatientService patientService, IMapper mapper)
+        public PatientController(ILogger<PatientController> logger, IPatientService patientService, IMapper mapper, IAppointmentService appointmentService)
         {
             _logger = logger;
-            _patientService = patientService; 
+            _patientService = patientService;
+            _appointmentService = appointmentService;   
         }
 
         [HttpGet(Name = "Patient")]
@@ -35,5 +38,21 @@ namespace MedicalClinic.WebApi.Controllers
                 throw;
             }
         }
+
+        public async Task<IEnumerable<AppointmentDto>> GetPatientHistory(int patientId)
+        {
+            try
+            {
+                var result = await _appointmentService.GetAppointmentHistoryByPatientIdAsync(patientId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+        }
+
+
     }
 }
