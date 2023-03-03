@@ -4,6 +4,7 @@ using MedicalClinic.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalClinic.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230228155530_AddedUserSeedData")]
+    partial class AddedUserSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,13 +40,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Analyzes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Blood"
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.AnalyzeResult", b =>
@@ -72,16 +68,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasIndex("AnalyzeId");
 
                     b.ToTable("AnalyzesResults");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AnalyzeId = 1,
-                            PatientId = 2,
-                            Result = "Bad",
-                            TimeStamp = new DateTime(2023, 2, 28, 23, 32, 32, 523, DateTimeKind.Local).AddTicks(6372)
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.Appointment", b =>
@@ -114,16 +100,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DoctorId = 1,
-                            PatientId = 2,
-                            Results = "Bad",
-                            TimeStamp = new DateTime(2023, 2, 28, 23, 32, 32, 523, DateTimeKind.Local).AddTicks(6438)
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.Doctor", b =>
@@ -165,18 +141,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Doctors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "lena@gmail.com",
-                            Name = "Lena",
-                            PhoneNumber = "999",
-                            SpecialityId = 1,
-                            Surname = "Petrova",
-                            UserId = 3
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.Patient", b =>
@@ -212,26 +176,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Patients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "kate@gmail.com",
-                            Name = "Kate",
-                            PhoneNumber = "666",
-                            Surname = "Pavlova",
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "mary11@gmail.com",
-                            Name = "Mary",
-                            PhoneNumber = "555",
-                            Surname = "Pavlova",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.Speciality", b =>
@@ -249,13 +193,6 @@ namespace MedicalClinic.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specialities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Cordiology"
-                        });
                 });
 
             modelBuilder.Entity("MedicalClinic.Domain.Entities.User", b =>
@@ -288,20 +225,6 @@ namespace MedicalClinic.DAL.Migrations
                             Email = "mary11@gmail.com",
                             PasswordHash = "443c4ae87a0c358f1b2ee93692938444",
                             UserType = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "kate@gmail.com",
-                            PasswordHash = "115067039670abb4571a74e8e8585e5d",
-                            UserType = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Email = "lena@gmail.com",
-                            PasswordHash = "20398ce448540c947edc4c30399e2ced",
-                            UserType = 2
                         });
                 });
 

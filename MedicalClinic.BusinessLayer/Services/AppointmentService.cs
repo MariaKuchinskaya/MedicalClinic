@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EfWebTutorial.Repositories;
 using MedicalClinic.BusinessLayer.Dtos;
+using MedicalClinic.BusinessLayer.Dtos.Csv;
 using MedicalClinic.BusinessLayer.Entities;
 using MedicalClinic.Domain.Entities;
 using MedicalClinic.Services.Interfaces;
@@ -62,6 +63,13 @@ namespace MedicalClinic.BusinessLayer.Services
             var result = await _appointmentRepository.GetAppointmentHistoryByPatientIdAsync(patientId);
             
             return _mapper.Map<List<AppointmentDto>>(result);
+        }
+
+        public async Task<List<AppDtoCsv>> GetAppointmentHistoryByPatientIdCsvAsync(int patientId)
+        {
+            var result = await _appointmentRepository.GetAppointmentHistoryByPatientIdAsync(patientId);
+
+            return _mapper.Map<List<AppDtoCsv>>(result);
         }
     }
 }

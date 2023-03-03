@@ -1,4 +1,5 @@
 ﻿using MedicalClinic.BusinessLayer.Dtos;
+using MedicalClinic.BusinessLayer.Dtos.Csv;
 using MedicalClinic.BusinessLayer.Entities;
 using MedicalClinic.Domain.Entities;
 
@@ -16,6 +17,8 @@ namespace MedicalClinic.Services.Interfaces
 
         public Task<AppointmentDto> GetAppointmentByIdAsync(int id);
 
-        public Task<List<AppointmentDto>> GetAppointmentHistoryByPatientIdAsync (int patientId);    
+        public Task<List<AppointmentDto>> GetAppointmentHistoryByPatientIdAsync (int patientId);
+
+        Task<List<AppDtoCsv>> GetAppointmentHistoryByPatientIdCsvAsync(int patientId);
     }
 }

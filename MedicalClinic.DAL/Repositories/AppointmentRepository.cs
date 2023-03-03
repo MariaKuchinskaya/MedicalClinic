@@ -60,7 +60,11 @@ namespace EfWebTutorial.Repositories
 
         public async Task<List<Appointment>> GetAppointmentHistoryByPatientIdAsync(int patientId)
         {
-            var history = await _db.Appointments.Where(x => x.PatientId == patientId && x.TimeStamp <= DateTime.Now).ToListAsync();
+            var history = await _db.Appointments.Where(x => x.PatientId == patientId && x.TimeStamp <= DateTime.Now)
+                .Include(x => x.Doctor)
+                .Include(x => x.Patient)
+                .ToListAsync();
+
             return history;
         }
     }
