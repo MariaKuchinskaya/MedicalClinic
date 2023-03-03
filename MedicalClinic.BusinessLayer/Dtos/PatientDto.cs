@@ -12,6 +12,6 @@ namespace MedicalClinic.BusinessLayer.Entities
 
         public string Email { get; set; }  
 
-        public List<AppointmentDto> Appointments { get; set; }    
+        //public List<AppointmentDto> Appointments { get; set; }    
     }
 }

@@ -4,6 +4,7 @@ using MedicalClinic.BusinessLayer.Configurations;
 using MedicalClinic.BusinessLayer.Services;
 using MedicalClinic.DAL;
 using MedicalClinic.DAL.Repositories;
+using MedicalClinic.DAL.Repositories.Interfaces;
 using MedicalClinic.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +20,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<PatientRepository, PatientRepository>();
 builder.Services.AddScoped<DoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<UserRepository, UserRepository>();
+builder.Services.AddScoped<AppointmentRepository, AppointmentRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 var config = new MapperConfiguration(c =>
 {
