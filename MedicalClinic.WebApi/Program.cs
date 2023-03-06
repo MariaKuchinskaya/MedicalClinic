@@ -20,7 +20,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<PatientRepository, PatientRepository>();
 builder.Services.AddScoped<DoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<UserRepository, UserRepository>();
-builder.Services.AddScoped<AppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();

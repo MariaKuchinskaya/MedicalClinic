@@ -1,20 +1,12 @@
-using Aspose.Cells;
 using AutoMapper;
 using MedicalClinic.BusinessLayer.Dtos;
-using MedicalClinic.BusinessLayer.Dtos.Csv;
 using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.BusinessLayer.Helpers.ReportGenerator.Factories;
+using MedicalClinic.BusinessLayer.Helpers.ReportGenerator.Interfaces;
+using MedicalClinic.Common.Enums;
 using MedicalClinic.Services.Interfaces;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SkiaSharp;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using MedicalClinic.WebApi.Helpers;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Net.Http.Headers;
 
 namespace MedicalClinic.WebApi.Controllers
 {
@@ -72,17 +64,45 @@ namespace MedicalClinic.WebApi.Controllers
             }
         }
 
-        [HttpGet("GetPatientHistoryInCsvFormat")]
-        public async Task<IActionResult> GetPatientHistoryInCsvFormat(int patientId)
+        //[HttpGet("GetPatientHistoryInCsvFormat")]
+        //public async Task<IActionResult> GetPatientHistoryInCsvFormat(int patientId)
+        //{
+        //    var result = await _appointmentService.GetAppointmentHistoryByPatientIdCsvAsync(patientId);
+
+        //    var csvString = Helpers.CsvHelper.GenerateCsvFromObjectList(result);
+
+        //    var stream = Helpers.CsvHelper.GenerateStreamFromString(csvString);
+
+        //    return File(stream, "application/octet-stream", "result.csv");
+
+        //}
+
+        [HttpGet("GetPatientHistoryInFormat")]
+        public async Task<IActionResult> GetPatientHistoryInFormat(int patientId, ExportType type = ExportType.Csv)
         {
             var result = await _appointmentService.GetAppointmentHistoryByPatientIdCsvAsync(patientId);
+            ExportDataGeneratorFactory? factory = null;
 
-            var csvString = CsvHelper.GenerateCsvFromObjectList(result);
+            switch (type)
+            {
+                case ExportType.Csv:
+                    factory = new CsvGeneratorFactory();
+                    break;
+                case ExportType.Pdf:
+                    factory = new PdfGeneratorFactory();
+                    break;
+            }
 
-            var stream = CsvHelper.GenerateStreamFromString(csvString);
+            if (factory != null)
+            {
+                ITranslator translator = factory.CreateGenerator();
+                var stream = await translator.GetReport(result);
 
-            return File(stream, "application/octet-stream", "result.csv");
 
+                return File(stream, "application/octet-stream", $"result.{type.ToString().ToLower()}");
+            }
+
+            throw new Exception();
         }
     }
 }

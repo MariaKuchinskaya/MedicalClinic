@@ -1,6 +1,4 @@
-﻿using MedicalClinic.BusinessLayer.Dtos;
-
-namespace MedicalClinic.Domain.Entities
+﻿namespace MedicalClinic.Domain.Entities
 {
     public class AnalyzeDto
     {

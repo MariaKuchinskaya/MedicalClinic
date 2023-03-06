@@ -1,7 +1,5 @@
 ﻿using MedicalClinic.BusinessLayer.Dtos;
 using MedicalClinic.BusinessLayer.Dtos.Csv;
-using MedicalClinic.BusinessLayer.Entities;
-using MedicalClinic.Domain.Entities;
 
 namespace MedicalClinic.Services.Interfaces
 {
