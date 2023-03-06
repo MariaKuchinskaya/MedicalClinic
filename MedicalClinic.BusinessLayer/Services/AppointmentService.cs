@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using EfWebTutorial.Repositories;
 using MedicalClinic.BusinessLayer.Dtos;
 using MedicalClinic.BusinessLayer.Dtos.Csv;
-using MedicalClinic.BusinessLayer.Entities;
+using MedicalClinic.DAL.Repositories.Interfaces;
 using MedicalClinic.Domain.Entities;
 using MedicalClinic.Services.Interfaces;
 
@@ -10,10 +9,10 @@ namespace MedicalClinic.BusinessLayer.Services
 {
     public class AppointmentService : IAppointmentService
     {
-        private readonly AppointmentRepository _appointmentRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
         private readonly IMapper _mapper;
 
-        public AppointmentService(AppointmentRepository appointmentRepository, IMapper mapper)
+        public AppointmentService(IAppointmentRepository appointmentRepository, IMapper mapper)
         {
             _appointmentRepository = appointmentRepository;
             _mapper = mapper;

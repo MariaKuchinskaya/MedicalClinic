@@ -1,5 +1,4 @@
 ﻿using MedicalClinic.BusinessLayer.Entities;
-using MedicalClinic.Domain.Entities;
 
 namespace MedicalClinic.Services.Interfaces
 {

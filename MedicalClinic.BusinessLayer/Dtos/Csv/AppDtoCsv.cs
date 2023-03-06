@@ -1,6 +1,4 @@
-﻿using MedicalClinic.BusinessLayer.Entities;
-
-namespace MedicalClinic.BusinessLayer.Dtos.Csv
+﻿namespace MedicalClinic.BusinessLayer.Dtos.Csv
 {
     public class AppDtoCsv
     {

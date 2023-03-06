@@ -1,5 +1,4 @@
-﻿using MedicalClinic.BusinessLayer.Dtos;
-using MedicalClinic.Domain.Entities;
+﻿using MedicalClinic.Domain.Entities;
 
 namespace MedicalClinic.BusinessLayer.Entities
 {
